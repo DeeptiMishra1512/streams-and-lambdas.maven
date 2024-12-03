@@ -21,6 +21,7 @@ public class StreamFilter {
      */ //TODO - construct person stream of 100 person objects; startingCharacter is a random capital letter
     public StreamFilter() {
         this(Stream.empty(), null);
+
     }
 
     /**
