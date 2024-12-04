@@ -4,10 +4,7 @@ import com.zipcodewilmington.streams.tools.ReflectionUtils;
 import com.zipcodewilmington.streams.tools.logging.LoggerHandler;
 import com.zipcodewilmington.streams.tools.logging.LoggerWarehouse;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -49,7 +46,13 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        return null;
+     //created a set to store unique names because
+        // Set does not store unique names.
+
+      Set<String> uniqueNames = new HashSet<>();
+
+      return people.stream()
+              .filter(person -> uniqueNames.add(person.getName()));
     }
 
 
@@ -60,7 +63,8 @@ public final class PersonWarehouse implements Iterable<Person> {
     public Stream<Person> getUniquelyNamedPeopleStartingWith(Character character) {
 
         return people.stream()
-                .filter(person -> person.getName().startsWith(String.valueOf(character)));
+                .filter(person -> person.getName().startsWith(String.valueOf(character)))
+                .distinct();
 
 
     }
@@ -71,7 +75,12 @@ public final class PersonWarehouse implements Iterable<Person> {
      */ //TODO
     public Stream<Person> getFirstNUniquelyNamedPeople(int n) {
 
-        return null;
+        Set<String> uniqueNames = new HashSet<>();
+
+        return people.stream()
+                .filter(person -> uniqueNames.add(person.getName()))
+                .limit(n);
+
     }
 
     /**
